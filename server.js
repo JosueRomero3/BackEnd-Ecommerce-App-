@@ -7,7 +7,6 @@ import authRoutes from "./routes/authRoute.js";
 import categoryRoutes from './routes/categoryRoutes.js'
 import productRoutes from './routes/productRoutes.js'
 import cors from 'cors'
-// import path from "path";
 
 //configure env
 dotenv.config();
@@ -19,10 +18,12 @@ connectDB();
 const app = express();
 
 //middelwares
-app.use(cors())
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cors({
+    origin: ["http://localhost:8080", "https://ecommerce-app.onrender.com"],
+}));
 app.use(morgan("dev"));
-// app.use(express.static(path.join(__dirname, './client/build')))
 
 //routes
 app.use("/api/v1/auth", authRoutes);
